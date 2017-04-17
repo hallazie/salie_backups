@@ -1,0 +1,79 @@
+\documentclass[twoside,twocolumn]{article}
+%\documentclass[twoside]{article}
+\date{}
+\usepackage[sc]{mathpazo}
+\usepackage[T1]{fontenc}
+\linespread{1.05}
+\usepackage{multirow}
+\usepackage{microtype}
+\usepackage[english]{babel}
+\usepackage[hmarginratio=1:1,top=20mm, bottom = 20mm, left = 15mm, right = 15mm, columnsep=15pt]{geometry}
+\usepackage[hang,small,labelfont=bf,up,textfont=up]{caption}
+\usepackage{booktabs}
+\usepackage{lettrine}
+\usepackage{enumitem}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\setlist[itemize]{noitemsep}
+\usepackage{titlesec}
+\renewcommand\thesection{\Roman{section}}
+\renewcommand\thesubsection{\roman{subsection}}
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{}
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{}
+\usepackage{fancyhdr}
+%\pagestyle{fancy}
+\usepackage{titling}
+\usepackage{hyperref}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+%----------------------------------------------------------------------------------------
+\usepackage{graphicx}
+\setlength{\droptitle}{-4\baselineskip}
+%\pretitle{\begin{center}\LARGE\bfseries}
+\pretitle{\begin{center}\LARGE}
+\posttitle{\end{center}}
+\title{Balancing the Tradeoff Between Accuracy and Efficiency\\ for Saliency Prediction}
+\author{%
+%\textsc{Shanghua Xiao} \\
+%\normalsize Sichuan University
+}
+\begin{document}
+\maketitle
+\begin{abstract}\
+1) Saliency prediction draws attention, and many application are developed. But the improvement on efficiency is rarely investigated. 2) In this work, we explore how to balance the accuracy and efficiency for saliency prediction tasks. 3) To perform accurate saliency prediction, object and semantic level information are involved by multi-scale inputs. And to achieve efficiency, we reduce the spatial complexity from two perspectives: parameter number and intermediate feature map sizes. We use truncated pretrained model to scale down the parameter number. And we apply regional input to scale down the intermediate feature map sizes. 4) We evaluate the accuracy of our network on MIT300 and CAT2000 benchmark dataset and achieve promising results comparing with state-of-the-art methods. Also we evaluate the efficiency on memory cost for producing one saliency map of our network, and outperform other recent proposals by a considerable margin.
+
+\end{abstract}
+
+\section{Introduction}
+
+\par 1) Saliency prediction aims to get a mask map and stuff...introduce. 2) Saliency prediction draws attention, and many application are developed. 2) Many saliency prediction application lie in robotics, where real-time is usually a requirement, and computational resources are scarce. Given that saliency prediction in robotics has been extensively used to speed-up other visual tasks for the robots such as \cite{borji2010online,dankers2007reactive}. So it is equally important for a saliency prediction approach to perform efficiently as well as accurately.
+
+\par 1) To boost the performance in accuracy, many recent methods apply large-scale image classification models (\cite{Simonyan14c,szegedy2015going,krizhevsky2012imagenet}) for pretraining. 2) While achieving significant improvement on accuracy, the requirement on computational resources may limit their scope of application for the perspective of preprocessing method. 3) The limitation is caused by the paradox between low computational demands for saliency prediction and high computational consumption for classification models. 4) According to feature integration theory, saliency prediction only need to assign a proper salient activation for features rather than classes. For example, "Eskimo dog" and "German shepherd" are two different classes in classification, and need to be represented in two different feature activation in order to perform accurate classification. While in saliency prediction, these two classes are just two minor modification for "dog" and can use one shared feature for salient activation.
+
+\par 1) In this work, we propose a novel approach with the effort of balancing the tradeoff between accuracy and efficiency for saliency prediction. 2) To achieve accurate saliency prediction, multiscale regional input is applied to involve object and semantic level stimuli, and two independent fully convolutional neural networks are applied to preserve the object and semantic level information simultaneously. And the efficiency is achieved via two ways: regional input for scaling down the data blob, and truncated pretrained model for reducing the parameter number and thus model complexity.
+
+\par 1) We evaluate the performance of our network on multiple benchmarks with held out test set, and achieve promising results comparing with state-of-the-art methods. 2) We also evaluate the computational complexity with average memory cost for producing on saliency map on an unified environment, and give a result with 14-26 times less than other recent methods \cite{}.
+
+\par We summarise the contribution of our work as follows:
+\begin{itemize}
+\item We propose a novel approach for capturing object and semantic level information simultaneously for saliency prediction, and achieve promising results in multiple metrics.
+\item By scaling down the parameter number and intermediate feature map sizes, we reduce the computational complexity for producing one saliency map by a considerable margin comparing with other recent methods.
+\end{itemize}  
+
+\section{Related Works}
+
+\par 1) In our proposed approach, we mainly investigate how to achieve accurate saliency prediction by capturing both object and semantic level information, and how to perform efficient saliency prediction by reducing the memory cost. In this section, we review some related works in these two direction.
+
+\par 1) In \cite{itti2001computational}, Itti \emph{et al.} shows that object and semantic level information are both vital for saliency prediction. Following this, many methods give their solution for capturing multilevel features from different directions. Deep Fixation \cite{kruthiventi2015deepfix} propose a FCNN based approach to unify the multiscale feature learning. In their work, "inception module" is utilized to extract complex semantic features, and "kernels with holes" are used to capture global context via large receptive field. In the SALICON proposal \cite{jiang2015salicon}, a fine resolution and a coarse resolution (with halved scale) image are send to two kernel-sharing networks to learn feature from multiple scales. Deep Gaze \cite{kummerer2014deep} propose another way to learn multilevel information by combining the feature maps from a selection of layers. In their work, five layers at different levels are rescaled and cropped to form a 3-dimensional tensor, then a final saliency map is extracted through a four-layer-network with kernel size of $1\times1$.
+
+\par 1) Jiang et al. and \cite{cbmmsaliency}, efficiency. 2) Shallow and Deep \cite{pan2016shallow}, explore memory cost: parameter number and data blob. Even with small parameter number, memory cost of data blob can be significantly big. 
+
+\section{Proposed Approach}
+
+\section{Experimental Results}
+
+\section{Conclusion}
+
+\bibliographystyle{plain}
+\bibliography{GLPS}
+\end{document}
