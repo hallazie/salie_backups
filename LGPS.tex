@@ -7,7 +7,7 @@
 \usepackage{multirow}
 \usepackage{microtype}
 \usepackage[english]{babel}
-\usepackage[hmarginratio=1:1,top=20mm, bottom = 20mm, left = 15mm, right = 15mm, columnsep=15pt]{geometry}
+\usepackage[hmarginratio=1:1,top=15mm, bottom = 15mm, left = 10mm, right = 10mm, columnsep=15pt]{geometry}
 \usepackage[hang,small,labelfont=bf,up,textfont=up]{caption}
 \usepackage{booktabs}
 \usepackage{lettrine}
@@ -64,15 +64,47 @@
 
 \par 1) In our proposed approach, we mainly investigate how to achieve accurate saliency prediction by capturing both object and semantic level information, and how to perform efficient saliency prediction by reducing the memory cost. In this section, we review some related works in these two direction.
 
-\par 1) In \cite{itti2001computational}, Itti \emph{et al.} shows that object and semantic level information are both vital for saliency prediction. Following this, many methods give their solution for capturing multilevel features from different directions. Deep Fixation \cite{kruthiventi2015deepfix} propose a FCNN based approach to unify the multiscale feature learning. In their work, "inception module" is utilized to extract complex semantic features, and "kernels with holes" are used to capture global context via large receptive field. In the SALICON proposal \cite{jiang2015salicon}, a fine resolution and a coarse resolution (with halved scale) image are send to two kernel-sharing networks to learn feature from multiple scales. Deep Gaze \cite{kummerer2014deep} propose another way to learn multilevel information by combining the feature maps from a selection of layers. In their work, five layers at different levels are rescaled and cropped to form a 3-dimensional tensor, then a final saliency map is extracted through a four-layer-network with kernel size of $1\times1$.
+\par 1) In \cite{itti2001computational}, Itti \emph{et al.} shows that object and semantic level information are both vital for saliency prediction. Following this, many methods give their solution for capturing multilevel features from different directions. Deep Fixation \cite{kruthiventi2015deepfix} propose a FCNN based approach to unify the multiscale feature learning. In their work, "inception module" is utilized to extract complex semantic features, and "kernels with holes" are used to capture global context via large receptive field. In the SALICON proposal \cite{jiang2015salicon}, a fine resolution and a coarse resolution (with halved scale) image are send to two kernel-sharing networks to learn feature from multiple scales. Deep Gaze \cite{kummerer2014deep} propose another way to learn multilevel information by combining the feature maps from a selection of layers. In their work, five layers at different levels are rescaled and cropped to form a 3-dimensional tensor, then a final saliency map is extracted through a four-layer-network with kernel size of $1\times1$. Another noticeable work is Multi-resolution Convolutional Neural Network (Mr-CNN). In the Mr-CNN proposal, three image slices with size of $42\times42$ are cropped from three resized input image ($150\times150, 250\times250, 400\times400$) as inputs. The slices are feed into three kernel-sharing CNNs to learn features from different resolutions, then to two fully connected layers to perform salient classification.
 
 \par 1) Jiang et al. and \cite{cbmmsaliency}, efficiency. 2) Shallow and Deep \cite{pan2016shallow}, explore memory cost: parameter number and data blob. Even with small parameter number, memory cost of data blob can be significantly big. 
 
-\section{Proposed Approach}
+\par 1) Our work mainly focus on how to get accurate saliency prediction while maintaining the efficiency.
 
-\section{Experimental Results}
+\section{Proposed Approach}\
 
-\section{Conclusion}
+\subsection{Network Architecture}
+
+\subsection{Blending Method}
+
+\subsection{Refinements on Saliency Map}
+
+\section{Experiments}
+
+\subsection{Datasets}
+
+\par 1) We train our network on SALIency in CONtext (SALICON) dataset. \cite{jiang2015salicon}, which provides a rich number of rich semantical information image samples, with 10,000 training samples, 5,000 validation samples and 5,000 testing samples from multiple categories. 
+
+\par 1) At validation and testing stage, we conduct the evaluation on three widely used dataset, namely, MIT1003, CAT2000 and MIT300 dataset. 2) The MIT1003 dataset contains 1003 . 2) The CAT2000 dataset is consist of one training set with accessable ground truth and one testing set with held out ground truth fixation maps. 3) The MIT300 
+
+\subsection{Evaluation Metrics}
+
+\par 1) During evaluation, multiple metrics are used, since previous study by Riche et al. \cite{riche2013saliency} shows that no single metric has concrete guarantee of fair comparison. 
+
+\paragraph{Area Under Roc Curve (AUC) and Normalized Saliency Scanpath (NSS):}
+
+\paragraph{Similarity (Sim), Correlated Coefficient (CC), Earth Mover's Distance (EMD) and Kullback-Leibler Divergence (KL):}
+
+\subsection{Implementation Details}
+
+\subsection{Results}
+
+\section{Discussion and Conclusion}\
+
+\par 1) Though the application of adaptive central bias improved the performance of our network on multiple dataset, the usage on prior biases need for further discussion. Prior biases, such as central bias, are widely applied in saliency prediction proposals, and remarkably improved the performance. Also, central bias in ground truth fixation maps is a common phenomenon in multiple saliency dataset such as MIT1003 and CAT2000. 2) However, we find that there is a worth-noticing similarity between overwhelming central biasing and Autism Spectrum Disorder (ASD) \cite{wang2015}, which is an attention disorder disease that has been proven will cause serious central bias for human when free viewing. See Figure.4, fixation maps from patients (6 and 8) with ASD overly focus their attention on the center of the stimuli while ignoring the actual salient object such as elephant and desk lamp.
+
+\par While in many saliency prediction tasks, especially the task in real-time interactive environment such as automatic driving and robotic controlling, predicted fixation should be shifting rapidly among different potential attention attractive spots. Thus we argue that overly relying on prior bias maybe a misleading direction for improving saliency prediction performance.
+
+\par In this work, we present a novel approach for saliency prediction with the effort of balancing the tradeoff between accuracy and efficiency. The proposed method achieve promising results on multiple benchmark datasets over different metrics comparing with state-of-the-art methods, while reducing the runtime and static memory cost of the network by a considerable margin.
 
 \bibliographystyle{plain}
 \bibliography{GLPS}
